@@ -4,5 +4,6 @@ from library import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('submit/',views.submit ,name="submit"),
+    path('search/',views.search ,name="search"),
+    path('detail/', views.detail, name="detail")
 ]
