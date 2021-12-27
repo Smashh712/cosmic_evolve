@@ -59,7 +59,7 @@ def search(request):
     key = "ttbmlboy101516001"
     list_ = []
     context = {}
-    url = f"https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmlboy101516001&Query={keyword}&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=xml&ItemIdType=ISBN&Version=20070901&Sort=Accuracy&ItemId={isbn}"
+    url = f"https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmlboy101516001&Query={keyword}&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=xml&ItemIdType=ItemId&Version=20070901&Sort=Accuracy&ItemId={isbn}"
     temp = requests.get(url)
     dict_type = xmltodict.parse(temp.text)
     if "item" not in dict_type["object"] :
@@ -92,7 +92,7 @@ def detail(request):
     isbn = request.POST.get('isbn')
     
     if(isbn):
-        url = f" http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmlboy101516001&Query=Title&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20070901&ItemIdType=ISBN&ItemId={isbn}"
+        url = f" http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmlboy101516001&Query=Title&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20070901&ItemIdType=ItemId&ItemId={isbn}"
         test = requests.get(url)
         dict_type = xmltodict.parse(test.text)
         title = dict_type["object"]['item']['title']
@@ -107,4 +107,6 @@ def detail(request):
         return render(request, 'detail.html', context)
     
     else:
-        return redirect(request, 'index.html')
+        return render(request, 'detail.html')
+        
+    

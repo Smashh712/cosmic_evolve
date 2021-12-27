@@ -50,9 +50,9 @@
       저자: {{i.1}}<br>
       출판사: {{i.2}}
       <br><br>
-      <form method="POST" action="{% url 'search' %}">
+      <form method="POST" action="{% url 'detail' %}">
         {% csrf_token %}
-        <button class="Primary" type="submit" value="{{i.3}}">{{i.3}}</button>
+        <button class="Primary" type="submit"  value="{{i.3}}"> </button>
       </form>
       <br><br>
       {% endfor %}
