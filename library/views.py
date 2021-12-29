@@ -3,6 +3,7 @@ from django.utils import timezone
 import requests
 import xmltodict
 from . import models
+from .models import book_info, Answer, Question
 from django.core.paginator import Paginator
 
 
@@ -52,6 +53,14 @@ def search(request):
                 list_.append([title,author,publisher,isbn])
             
     context["book"] = list_
+    
+    page = request.GET.get('page', '1')
+    title = models.book_info.objects.all().order_by('title')
+    author = models.book_info.objects.all().order_by('author')
+    book_list = [title, author]
+    paginator = Paginator(book_list, 10)
+    page_obj = paginator.get_page(page)
+    context["book_list"] = page_obj
     return render(request, 'index.html', context)
         
 
@@ -128,25 +137,41 @@ def show_book_list(request):
     return render(request, 'show_book_list.html', context)
     
             
-            
-def register(request):
-    
-    return render(request, 'register.html')
-    
-        
-
-def login(request):
-    
-    return render(request, 'login.html')
-
-    
-  
-        
-        
-    
-    
-    
-    
-    
 
 
+    
+# 자유게시판 관련 함수들 ###
+def index(request):
+    '''
+    목록 출력
+    '''
+    question_list = Question.objects.all().order_by('-create_date')
+    context = {'question_list': question_list}
+    return render(request, 'question_list.html', context)
+
+
+def detail_index(request, question_id):
+    '''
+    내용 출력
+    '''
+    question = get_object_or_404(Question, pk=question_id)
+    context = {'question': question}
+    return render(request, 'question_detail.html', context)
+
+
+def answer_create(request, question_id):
+    '''
+    댓글 등록
+    '''
+    
+    question = get_object_or_404(Question, pk=question_id)
+    question.answer_set.create(content=request.POST.get('content'),
+                               create_date=timezone.now())
+    
+    return redirect('library:question_detail', question_id=question.id)
+    
+
+
+    
+    
+    
