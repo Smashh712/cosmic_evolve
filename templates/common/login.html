@@ -12,24 +12,21 @@
   <link href="login.css" rel="stylesheet" type="text/css" <style "background-color:#17a2b8;" /> <title>login</title>
 </head>
 
-<body>
+<body style="background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);">
   <div class="container my-3">
-    <div class="row">
-      <div class="col-4">
-        <h4>로그인</h4>
-      </div>
+    <div class="row" style="text-align:right;">
       <div class="col-8 text-right">
-        <span>
+        <span style="text-align:right; margin-right:1px;">
           또는
           <a href="{% url 'common:signup' %}">계정을 만드세요</a>
         </span>
       </div>
     </div>
     <div id="login">
-      <h3 class="text-center text-white pt-5">Login form</h3>
       <div class="container">
         <form method="POST" class="post-form" action="{% url 'common:login' %}">
           {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}">
           {% include "form_errors.html" %}
           <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">

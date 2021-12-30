@@ -10,13 +10,19 @@
 
   <body>
     <div>
-      <h1>ㅇㅇ님의 도서목록입니다</h1>
+      <h1>{{show_book_list.user}}님의 도서목록입니다</h1>
       {% for i in show_book_list %}
+        {% csrf_token %}
         <b>제목:
           {{i.title}}</b><br>
         <b>저자:
-          {{i.author}}</b>
+          {{i.author}}</b><br>
+        <b>출판사:
+          {{i.publisher}}</b><br>
+        <b>ISBN:
+          {{i.isbn}}</b>
         <br>
+        {{show_book_list.user}}
         <br>
       {% endfor %}
     </div>
