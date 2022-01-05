@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}BestSellers{% endblock %}
+
+{% block content %}
+
+  {% for i in book %}
+    <div class="container" style="margin-top:20px;">
+      <ul class="list-group">
+        <li id="content" class="list-group-item active" aria-current="true">도서명:
+          {{i.0}}</li>
+        <li id="content" class="list-group-item">저자:
+          {{i.1}}</li>
+        <li id="content" class="list-group-item">출판사:
+          {{i.2}}</li>
+        <li id="content" class="list-group-item">
+          <img src={{i.3}} "width="100px""></li>
+
+        <form method="POST" action="{% url 'library:bookAdd' %}">
+          {% csrf_token %}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewbox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+          <button class="btn btn-outline-info" id="rentBook" type="submit" name="isbn" value="{{i.5}}">소장도서 등록하기</button>
+        </form>
+        <br>
+      </ul>
+    </div>
+
+  {% endfor %}
+{% endblock %}

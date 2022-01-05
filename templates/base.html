@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>
+      {% block title %}Hello, pybo!{% endblock title %}
+    </title>
+  </head>
+
+  <body>
+
+    {% block header %}
+      <main>
+        <header class="p-3 bg-dark text-white">
+          <div class="container">
+            {% include 'form_errors.html' %}
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+              <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                  <use xlink:href="#bootstrap"/>
+                </svg>
+              </a>
+
+              <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li>
+                  <a href="{% url 'library:home' %}" class="nav-link px-2 text-secondary">Home</a>
+                </li>
+                <li>
+                  <a href="{% url 'library:printBooks' %}" class="nav-link px-2 text-white">신간리스트</a>
+                </li>
+                <li>
+                  <a href="{% url 'library:index' %}" class="nav-link px-2 text-white">소장도서</a>
+                </li>
+                <li>
+                  <a href="{% url 'library:rentStatus' %}" class="nav-link px-2 text-white">대출현황</a>
+                </li>
+                <li>
+                  <a href="{% url 'library:about' %}" class="nav-link px-2 text-white">About</a>
+                </li>
+              </ul>
+
+              <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="POST" action="{% url 'library:search' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="도서명을 입력하세요." aria-label="Search" name="user_input" id="user_input">
+                <button class="btn btn-outline-success" href="{% url 'library:search' %}" type="submit" name="keyword" id="user_input">Search</button>
+              </form>
+
+              {% if user.is_authenticated %}
+                {{user}}
+                님이 접속중입니다.
+                <a class="nav-link" href="{% url 'accounts:logout' %}">{{ user.username }}
+                  (로그아웃)</a>
+              {% else %}
+                <div class="text-end">
+                  <button type="button" class="btn btn-outline-light me-2" onclick="location.href = '{% url 'accounts:login' %}'">Login</button>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </header>
+      </main>
+    {% endblock %}
+    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+    {% block content %}{% endblock %}
+  </body>
+
+</html>

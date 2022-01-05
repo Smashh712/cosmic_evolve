@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+  <!--0제목 1저자 2출판사 3대여자 4대여상태-->
+  {% for i in book %}
+    도서명:
+    {{i.title}}
+    저자:
+    {{i.author}}
+    출판사:
+    {{i.publisher}}
+    대여자:
+    {{i.rentUser}}
+    대여상태:
+    {{i.rentStatus}}
+    <br>
+  {% endfor %}
+{% endblock %}
