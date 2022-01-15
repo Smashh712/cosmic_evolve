@@ -9,7 +9,7 @@ class BookInfomation(models.Model):
     title = models.CharField("도서명", max_length=150) # 도서명
     author = models.CharField("저자", max_length=50) # 저자
     publisher = models.CharField("출판사", max_length=100) # 출판사
-    ISBN13 = models.CharField("ISBN13", max_length=13) # ISBN13 13자리 숫자
+    ISBN13 = models.CharField("ISBN13", max_length=13, blank=True, null=True) # ISBN13 13자리 숫자
     ISBN = models.CharField("ISBN", max_length=25) # ISBN ItemType=ItemId, 
     price = models.CharField("가격", max_length=100) # priceStandard
     cover = models.CharField("이미지", max_length=100) # 이미지 

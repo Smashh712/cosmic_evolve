@@ -12,10 +12,10 @@ urlpatterns = [
     path('returnBook/', views.returnBook, name='returnBook'),
     path('search/', views.search, name='search'),
     path('detail/', views.detail, name='detail'),
-    path('rentStatus/', views.rentStatus, name="rentStatus"),
     path('rentBook/', views.rentBook, name='rentBook'),
-    path('about/', views.about, name="about"),
     path('home/', views.home, name="home"),
+    path('rentalReturnBook/', views.rentalReturnBook, name='rentalReturnBook'),
+    path('myBookList/', views.myBookList, name='myBookList'),
     
     
 ]

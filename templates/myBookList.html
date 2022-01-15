@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for i in bookList %}
+도서명: {{i.title}}<br>
+저자: {{i.author}}<br>
+출판사: {{i.publisher}}<br>
+<img src="{{i.cover}}" width="150px;"><br>
+<form action="{% url 'library:rentalReturnBook' %}" method="POST" onsubmit="return returnBook();">
+    {% csrf_token %}
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        class="bi bi-arrow-down-circle-fill" viewbox="0 0 16 16">
+        <path
+            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+    </svg>
+    <button class="btn btn-outline-info" value="{{i.id}}" name="bookid">
+        책 반납하기
+    </button>
+</form>
+<br><br>
+
+
+
+{% endfor %}
+{% endblock %}

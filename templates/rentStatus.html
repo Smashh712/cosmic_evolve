@@ -1,18 +1,90 @@
 {% extends 'base.html' %}
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 {% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" style="width:60%;">제목</th>
+      <th scope="col">저자</th>
+      <th scope="col">출판사</th>
+      <th scope="col">대여상태</th>
+      <th scope="col">대여자</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in book %}
+    <tr>
+      <td class="align-middle">
+        <img src={{i.3}} style="width:40px;height:50px;">
+      </td>
+      <td class="align-middle">
+        <div class="align-self-center">{{i.0}}</div>
+      </td>
+      <td class="align-middle">
+        {{i.1}}</td>
+      <td class="align-middle">
+        <form method="POST" action="{% url 'library:bookAdd' %}">
+          {% csrf_token %}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-arrow-down-circle-fill" viewbox="0 0 16 16">
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+          </svg>
+          <button class="btn btn-outline-info" id="rentBook" type="submit" name="isbn" value="{{i.5}}">등록</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="container shadow p-3 mb-5 bg-body rounded" style="margin-top:20px;box-shadow: 5px 5px gray;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" style="width:60%;">제목</th>
+        <th scope="col">저자</th>
+        <th scope="col">출판사</th>
+        <th scope="col">대여상태</th>
+        <th scope="col">대여자</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in book %}
+      <tr>
+        <td class="align-middle">
+          <img src={{i.3}} style="width:40px;height:50px;">
+        </td>
+        <td class="align-middle">
+          <div class="align-self-center">{{i.0}}</div>
+        </td>
+        <td class="align-middle" style="width:20%;">
+          {{i.1}}</td>
+        <td class="align-middle" style="width:10%;">
+          {{i.2}}</td>
+        <td class="align-middle" style="width:10%;">
+          <form method="POST" action="{% url 'library:bookAdd' %}">
+            {% csrf_token %}
+            <button class="btn btn-outline-info" id="bookAdd" type="submit" name="isbn" value="{{i.4}}">등록</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   <!--0제목 1저자 2출판사 3대여자 4대여상태-->
   {% for i in book %}
-    도서명:
-    {{i.title}}
-    저자:
-    {{i.author}}
-    출판사:
-    {{i.publisher}}
-    대여자:
-    {{i.rentUser}}
-    대여상태:
-    {{i.rentStatus}}
-    <br>
+  도서명:
+  {{i.title}}
+  저자:
+  {{i.author}}
+  출판사:
+  {{i.publisher}}
+  대여자:
+  {{i.rentUser}}
+  대여상태:
+  {{i.rentStatus}}
+  <br>
   {% endfor %}
-{% endblock %}
+  {% endblock %}

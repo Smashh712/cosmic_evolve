@@ -1,20 +1,32 @@
 {% block content %}
+{% comment %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+{% endcomment %}
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link href="/static/login.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <form method="post">
     {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div class="form-group">
+    {{form.non_field_errors}}
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
 
-        <label for="{{ form.username.id_for_label }}">Username:</label>
-        {{ form.username }}
-        {{ form.username.errors }}
+            <!-- Icon -->
 
+            <!-- Login Form -->
+            <form>
+                <label type="text" id="login" class="fadeIn second" name="login" placeholder="login"
+                    for="{{ form.username.id_for_label }}">
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                    <label type="password" id="password" class="fadeIn third" name="login" placeholder="password"
+                        for="{{ form.password.id_for_label }}">
+                        {{ form.password }}
+                        {{ form.password.errors }}
+                        <br>
+                        <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-
-        <label for="{{ form.password.id_for_label }}">Password:</label>
-        {{ form.password }}
-        {{ form.password.errors }}
-    </div>
-    <button type="submit">Login</button>
-</form>
-{% endblock %}
+    {% endblock %}
